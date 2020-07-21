@@ -14,6 +14,11 @@ Pod::Spec.new do |spec|
 
   spec.vendored_frameworks = 'Identance.framework'
 
+  spec.source   =  { 
+    :git => 'https://github.com/identance/ios-sdk.git',
+    :tag => spec.version
+  }
+
   spec.swift_version    = '5.0'
   spec.platform         = :ios, '10.0'
   spec.ios.deployment_target = '10.0'
@@ -21,6 +26,6 @@ Pod::Spec.new do |spec|
   spec.frameworks       = 'UIKit', 'Foundation'
   spec.user_target_xcconfig = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
     
-  spec.dependency  'Down', '0.9.2'
+  spec.dependency 'Down', '0.9.2'
   
 end
