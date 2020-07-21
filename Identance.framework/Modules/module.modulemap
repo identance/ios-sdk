@@ -1,0 +1,18 @@
+framework module Identance {
+    umbrella header "Identance.h"
+    
+    export *
+    module * { export * }
+    
+    explicit module Private {
+        header "ExceptionWrapper.h"
+        
+        export *
+    }
+
+}
+
+module Identance.Swift {
+    header "Identance-Swift.h"
+    requires objc
+}
