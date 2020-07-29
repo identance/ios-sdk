@@ -24,7 +24,6 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '10.0'
   spec.requires_arc     = true
   spec.frameworks       = 'UIKit', 'Foundation'
-  spec.user_target_xcconfig = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
     
   spec.dependency 'Down', '0.9.2'
   
