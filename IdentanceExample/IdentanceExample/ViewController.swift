@@ -55,16 +55,8 @@ class ViewController: UIViewController {
 
 extension ViewController: VerificationViewControllerDelegate {
     
-    // Verification successfully finished
-    func verification(didComplete viewController: VerificationViewController) {
+    func verification(_ viewController: VerificationViewController, didCompleteWith result: VerificationResult) {
         viewController.dismiss(animated: true, completion: nil)
-    }
-    
-    // Verification finished with error
-    func verification(_ viewController: VerificationViewController, failed error: Error) {
-        viewController.dismiss(animated: true, completion: nil)
-        
-        // Handle error here
     }
     
 }

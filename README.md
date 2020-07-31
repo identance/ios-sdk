@@ -63,7 +63,7 @@ To work properly SDK requires access to device *Camera* and *Photo Library*. For
 
 ## Usage
 
-Open `ExampleIdentance` project with integrated SDK in Xcode. You need to execute the `pod install` command in the project dir to download the dependencies.
+Open `IdentanceExample` project with integrated SDK in Xcode. You need to execute the `pod install` command in the project dir to download the dependencies.
 
 ### Start the verification process
 
@@ -96,7 +96,7 @@ configuration.tokenProvider = ClosureTokenProvider() { completion in
 let verification try = Verification(configuration: configuration)
 ```
 
-Then you need to get the `VerificationViewController` object, setup its delegate and present it.
+It is recommended to create a new `Verification` object each time you want to start a verifaction process. Then you need to get the `VerificationViewController` object, setup its delegate and present it.
 
 ```swift
 let verificationController = verification.verificationViewController()
@@ -104,37 +104,14 @@ verificationController.delegate = self
 present(verificationController, animated: true, completion: nil)
 ```
 
-By implementing the `VerificationViewControllerDelegate` you will get callbacks from the verification process about its success or failure.
+By implementing the `VerificationViewControllerDelegate` you will get callbacks from the verification process about its success submit or cancellation.
 
 ```swift
-// Verification successfully finished
-func verification(didComplete viewController: VerificationViewController) {
-    viewController.dismiss(animated: true, completion: nil)
-}
-
-// Verification finished with some error
-func verification(_ viewController: VerificationViewController, failed error: Error) {
-    viewController.dismiss(animated: true, completion: nil)
-    
-    // Handle error here
+// Verification finished and must be dismissed
+func verification(_ viewController: VerificationViewController, didCompleteWith result: VerificationResult) {
+    viewController.dismiss(animated: true, completion: nil) // Required step. ViewController will not dismiss automatically
 }
 ```
-
-### Get a status update on a user's verification
-
-You could get the status of a user's verification by calling `getVerificationStatus` of `Verification` instance:
-
-```swift
-func getVerificationStatus(completion: ((VerificationStatus, Swift.Error?) -> Void)?)
-```
-
-###### `VerificationStatus`:
-
-* `notDetermined` - the user data is absent
-* `notVerified` - the user verification is in progress or finished/stopped at some point. Please check the `verifiedStages` property of the `Verification` object for additional details
-* `rejected` - the user dossier is rejected
-
-
 
 ## Customization
 
@@ -190,3 +167,12 @@ If some text in the SDK must be changed then you need to add appropriate strings
 ```
 
 All SDK keys start with `zn__` so there won't be any conflict with your own keys. Try open contents of framework and find there `Localizable.strings` files inside `language.lprog` directories to search for key you want to replace.
+
+## Q&A
+
+**Q**: During project compilation get error: `Command CompileSwiftSources failed with a nonzero exit code` with detailed description `error: using bridging headers with module interfaces is unsupported`
+**A**: Usually this could be in case when Xcode project contains *bridging header*.  Set target's `BUILD_LIBRARY_FOR_DISTRIBUTION` build setting to `NO`.
+
+**Q**: During verification flow a user document scanning step absent on Simulator device.
+**A**: Simulator device doesn't have access to a camera so this step is automatically skipped. Because of that it is highly recommended to test verification flow on real device.
+
