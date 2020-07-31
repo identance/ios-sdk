@@ -1,10 +1,6 @@
 //
 //  Identance.h
 //  Identance
-//
-//  Created by Dmytro Trofymenko on 3/14/18.
-//  Copyright © 2018 Dmytro Trofymenko. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 

@@ -41,8 +41,7 @@ extension Configuration {
   public func validateMicroblink() throws
 }
 @objc(ZNVerificationViewControllerDelegate) public protocol VerificationViewControllerDelegate {
-  @objc(verification:failed:) optional func verification(_ viewController: Identance.VerificationViewController, failed error: Swift.Error)
-  @objc(verificationDidComplete:) optional func verification(didComplete viewController: Identance.VerificationViewController)
+  @objc(verification:didCompleteWith:) func verification(_ viewController: Identance.VerificationViewController, didCompleteWith result: Identance.VerificationResult)
 }
 @_hasMissingDesignatedInitializers @objc(ZNVerificationViewController) public class VerificationViewController : Identance.ViewController {
   @objc weak public var delegate: Identance.VerificationViewControllerDelegate?
@@ -55,6 +54,22 @@ extension Configuration {
   @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
   @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
   @objc override dynamic public func didMove(toParent parent: UIKit.UIViewController?)
+}
+@objc(ZNStageStatus) public enum StageStatus : Swift.Int {
+  case draft
+  case pending
+  case correction
+  case accepted
+  case locked
+  case inprogress
+  case refused
+  case nextStageNeeded
+  case currentStageNeeded
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
 }
 @objc(ZNTokenProvider) public protocol TokenProvider {
   @objc func token(completion: @escaping (Swift.String?, Swift.Error?) -> Swift.Void)
@@ -75,9 +90,6 @@ extension Configuration {
   @objc public func invertColors()
   @objc public func configure(scheme: [Swift.String : Swift.String])
   @objc deinit
-}
-extension AVCaptureVideoOrientation {
-  public init?(deviceOrientation: UIKit.UIDeviceOrientation)
 }
 @_inheritsConvenienceInitializers @objc(ZNConfiguration) public class Configuration : ObjectiveC.NSObject {
   @objc public var appID: Foundation.NSNumber?
@@ -120,26 +132,22 @@ precedencegroup SectionPrecedence {
 }
 infix operator +++ : FormPrecedence
 infix operator <<< : SectionPrecedence
-extension UIView {
-  public func removeAllConstraints()
+public typealias StageID = Swift.String
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(ZNVerificationResult) public class VerificationResult : ObjectiveC.NSObject {
+  final public let submitStatus: Identance.DossierSubmitStatus
+  final public let stageStatuses: [Identance.StageID : Identance.StageStatus]?
+  @objc override dynamic public init()
+  @objc deinit
 }
-@objc(ZNVerificationStatus) public enum VerificationStatus : Swift.Int {
-  case notDetermined
-  case notVerified
-  case rejected
+@objc(ZNVerificationStatus) public enum DossierSubmitStatus : Swift.Int {
+  case cancelled
+  case dossierSubmitted
+  case dossierRejected
   public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
   public var rawValue: Swift.Int {
     get
   }
-}
-extension NSNotification {
-  @objc public static var verificationStatusDidChange: Foundation.NSString {
-    @objc get
-  }
-}
-extension NSNotification.Name {
-  public static let VerificationStatusDidChange: Foundation.Notification.Name
 }
 @objc(ZNVerification) public class Verification : ObjectiveC.NSObject {
   @objc public static var versionString: Swift.String {
@@ -149,21 +157,12 @@ extension NSNotification.Name {
     @objc get
   }
   @objc final public let configuration: Identance.Configuration
-  @objc public var status: Identance.VerificationStatus {
-    get
-  }
-  @objc public var verifiedStages: [Swift.String] {
-    get
-  }
   @objc public init(configuration: Identance.Configuration) throws
   @objc deinit
   @objc override dynamic public init()
 }
 extension Verification {
   @objc dynamic public func verificationViewController() -> Identance.VerificationViewController
-}
-extension Verification {
-  @objc dynamic public func getVerificationStatus(completion: ((Identance.VerificationStatus, Swift.Error?) -> Swift.Void)?)
 }
 extension Collection where Self.Element == Swift.UInt8, Self.Index == Swift.Int {
 }
@@ -213,9 +212,12 @@ extension Identance.LogLevel : Swift.RawRepresentable {}
 extension Identance.ConfigurationLanguage : Swift.Equatable {}
 extension Identance.ConfigurationLanguage : Swift.Hashable {}
 extension Identance.ConfigurationLanguage : Swift.RawRepresentable {}
+extension Identance.StageStatus : Swift.Equatable {}
+extension Identance.StageStatus : Swift.Hashable {}
+extension Identance.StageStatus : Swift.RawRepresentable {}
 extension Identance.ConfigurationWorkingMode : Swift.Equatable {}
 extension Identance.ConfigurationWorkingMode : Swift.Hashable {}
 extension Identance.ConfigurationWorkingMode : Swift.RawRepresentable {}
-extension Identance.VerificationStatus : Swift.Equatable {}
-extension Identance.VerificationStatus : Swift.Hashable {}
-extension Identance.VerificationStatus : Swift.RawRepresentable {}
+extension Identance.DossierSubmitStatus : Swift.Equatable {}
+extension Identance.DossierSubmitStatus : Swift.Hashable {}
+extension Identance.DossierSubmitStatus : Swift.RawRepresentable {}

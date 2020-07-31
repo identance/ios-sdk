@@ -291,6 +291,16 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNConfigurationWorkingMode, "ConfigurationWo
 
 
 
+/// Verification status enum.
+typedef SWIFT_ENUM_NAMED(NSInteger, ZNVerificationStatus, "DossierSubmitStatus", open) {
+/// User close verification without any changes to Dossier
+  ZNVerificationStatusCancelled = 0,
+/// User Dossier was changed during current verification session
+  ZNVerificationStatusDossierSubmitted = 1,
+/// User Dossier is in rejected state
+  ZNVerificationStatusDossierRejected = 2,
+};
+
 
 
 typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
@@ -309,12 +319,6 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
 
 
 
-@class NSString;
-
-@interface NSNotification (SWIFT_EXTENSION(Identance))
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _Nonnull verificationStatusDidChange;)
-+ (NSString * _Nonnull)verificationStatusDidChange SWIFT_WARN_UNUSED_RESULT;
-@end
 
 
 
@@ -325,6 +329,27 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _
 
 
 
+/// User Dossier Stage status
+typedef SWIFT_ENUM_NAMED(NSInteger, ZNStageStatus, "StageStatus", open) {
+/// New stage, user do not provide any information so far
+  ZNStageStatusDraft = 0,
+/// There is no final decision on application
+  ZNStageStatusPending = 1,
+/// User has to provide updated information to the initial application
+  ZNStageStatusCorrection = 2,
+/// Final decision, user has successfully passed verification
+  ZNStageStatusAccepted = 3,
+/// User not allowed to send this stage, until he passes previous stage
+  ZNStageStatusLocked = 4,
+/// User has submitted stage and it is still processing on backend
+  ZNStageStatusInprogress = 5,
+/// Final decision, user has not passed verification
+  ZNStageStatusRefused = 6,
+/// User has to send subsequent stage of verification
+  ZNStageStatusNextStageNeeded = 7,
+/// User is obliged by CO to provide information on specific stage of verification
+  ZNStageStatusCurrentStageNeeded = 8,
+};
 
 
 
@@ -413,7 +438,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) ZNUIScheme * _Nonnull 
 
 
 
-enum ZNVerificationStatus : NSInteger;
 
 /// Primary class to use as entry point for SDK functionality.
 SWIFT_CLASS_NAMED("Verification")
@@ -426,10 +450,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 + (NSString * _Nonnull)fullVersionString SWIFT_WARN_UNUSED_RESULT;
 /// Configuration object passed on initialization.
 @property (nonatomic, readonly, strong) ZNConfiguration * _Nonnull configuration;
-/// User verification status
-@property (nonatomic, readonly) enum ZNVerificationStatus status;
-/// List of verified stage id’s
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull verifiedStages;
 /// Initializes verification object with configuration.
 /// <ul>
 ///   <li>
@@ -443,22 +463,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
-
-@interface ZNVerification (SWIFT_EXTENSION(Identance))
-/// Allows to get current verifications status.
-/// <ul>
-///   <li>
-///     parameters:
-///   </li>
-///   <li>
-///     completion: Block that will be called on operation completion.
-///   </li>
-/// </ul>
-- (void)getVerificationStatusWithCompletion:(void (^ _Nullable)(enum ZNVerificationStatus, NSError * _Nullable))completion;
-@end
-
-
 
 @class ZNVerificationViewController;
 
@@ -501,12 +505,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL isForceManualPhoto;)
 + (void)setIsForceManualPhoto:(BOOL)newValue;
 @end
 
-/// Verification status enum.
-typedef SWIFT_ENUM_NAMED(NSInteger, ZNVerificationStatus, "VerificationStatus", open) {
-  ZNVerificationStatusNotDetermined = 0,
-  ZNVerificationStatusNotVerified = 1,
-  ZNVerificationStatusRejected = 2,
-};
+
+/// Verification result.
+SWIFT_CLASS_NAMED("VerificationResult")
+@interface ZNVerificationResult : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 @class NSBundle;
 @class NSCoder;
@@ -538,9 +542,7 @@ SWIFT_CLASS_NAMED("VerificationViewController")
 
 SWIFT_PROTOCOL_NAMED("VerificationViewControllerDelegate")
 @protocol ZNVerificationViewControllerDelegate
-@optional
-- (void)verification:(ZNVerificationViewController * _Nonnull)viewController failed:(NSError * _Nonnull)error;
-- (void)verificationDidComplete:(ZNVerificationViewController * _Nonnull)viewController;
+- (void)verification:(ZNVerificationViewController * _Nonnull)viewController didCompleteWith:(ZNVerificationResult * _Nonnull)result;
 @end
 
 
@@ -839,6 +841,16 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNConfigurationWorkingMode, "ConfigurationWo
 
 
 
+/// Verification status enum.
+typedef SWIFT_ENUM_NAMED(NSInteger, ZNVerificationStatus, "DossierSubmitStatus", open) {
+/// User close verification without any changes to Dossier
+  ZNVerificationStatusCancelled = 0,
+/// User Dossier was changed during current verification session
+  ZNVerificationStatusDossierSubmitted = 1,
+/// User Dossier is in rejected state
+  ZNVerificationStatusDossierRejected = 2,
+};
+
 
 
 typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
@@ -857,12 +869,6 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
 
 
 
-@class NSString;
-
-@interface NSNotification (SWIFT_EXTENSION(Identance))
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _Nonnull verificationStatusDidChange;)
-+ (NSString * _Nonnull)verificationStatusDidChange SWIFT_WARN_UNUSED_RESULT;
-@end
 
 
 
@@ -873,6 +879,27 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _
 
 
 
+/// User Dossier Stage status
+typedef SWIFT_ENUM_NAMED(NSInteger, ZNStageStatus, "StageStatus", open) {
+/// New stage, user do not provide any information so far
+  ZNStageStatusDraft = 0,
+/// There is no final decision on application
+  ZNStageStatusPending = 1,
+/// User has to provide updated information to the initial application
+  ZNStageStatusCorrection = 2,
+/// Final decision, user has successfully passed verification
+  ZNStageStatusAccepted = 3,
+/// User not allowed to send this stage, until he passes previous stage
+  ZNStageStatusLocked = 4,
+/// User has submitted stage and it is still processing on backend
+  ZNStageStatusInprogress = 5,
+/// Final decision, user has not passed verification
+  ZNStageStatusRefused = 6,
+/// User has to send subsequent stage of verification
+  ZNStageStatusNextStageNeeded = 7,
+/// User is obliged by CO to provide information on specific stage of verification
+  ZNStageStatusCurrentStageNeeded = 8,
+};
 
 
 
@@ -961,7 +988,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) ZNUIScheme * _Nonnull 
 
 
 
-enum ZNVerificationStatus : NSInteger;
 
 /// Primary class to use as entry point for SDK functionality.
 SWIFT_CLASS_NAMED("Verification")
@@ -974,10 +1000,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 + (NSString * _Nonnull)fullVersionString SWIFT_WARN_UNUSED_RESULT;
 /// Configuration object passed on initialization.
 @property (nonatomic, readonly, strong) ZNConfiguration * _Nonnull configuration;
-/// User verification status
-@property (nonatomic, readonly) enum ZNVerificationStatus status;
-/// List of verified stage id’s
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull verifiedStages;
 /// Initializes verification object with configuration.
 /// <ul>
 ///   <li>
@@ -991,22 +1013,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
-
-@interface ZNVerification (SWIFT_EXTENSION(Identance))
-/// Allows to get current verifications status.
-/// <ul>
-///   <li>
-///     parameters:
-///   </li>
-///   <li>
-///     completion: Block that will be called on operation completion.
-///   </li>
-/// </ul>
-- (void)getVerificationStatusWithCompletion:(void (^ _Nullable)(enum ZNVerificationStatus, NSError * _Nullable))completion;
-@end
-
-
 
 @class ZNVerificationViewController;
 
@@ -1049,12 +1055,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL isForceManualPhoto;)
 + (void)setIsForceManualPhoto:(BOOL)newValue;
 @end
 
-/// Verification status enum.
-typedef SWIFT_ENUM_NAMED(NSInteger, ZNVerificationStatus, "VerificationStatus", open) {
-  ZNVerificationStatusNotDetermined = 0,
-  ZNVerificationStatusNotVerified = 1,
-  ZNVerificationStatusRejected = 2,
-};
+
+/// Verification result.
+SWIFT_CLASS_NAMED("VerificationResult")
+@interface ZNVerificationResult : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 @class NSBundle;
 @class NSCoder;
@@ -1086,9 +1092,7 @@ SWIFT_CLASS_NAMED("VerificationViewController")
 
 SWIFT_PROTOCOL_NAMED("VerificationViewControllerDelegate")
 @protocol ZNVerificationViewControllerDelegate
-@optional
-- (void)verification:(ZNVerificationViewController * _Nonnull)viewController failed:(NSError * _Nonnull)error;
-- (void)verificationDidComplete:(ZNVerificationViewController * _Nonnull)viewController;
+- (void)verification:(ZNVerificationViewController * _Nonnull)viewController didCompleteWith:(ZNVerificationResult * _Nonnull)result;
 @end
 
 
@@ -1390,6 +1394,16 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNConfigurationWorkingMode, "ConfigurationWo
 
 
 
+/// Verification status enum.
+typedef SWIFT_ENUM_NAMED(NSInteger, ZNVerificationStatus, "DossierSubmitStatus", open) {
+/// User close verification without any changes to Dossier
+  ZNVerificationStatusCancelled = 0,
+/// User Dossier was changed during current verification session
+  ZNVerificationStatusDossierSubmitted = 1,
+/// User Dossier is in rejected state
+  ZNVerificationStatusDossierRejected = 2,
+};
+
 
 
 typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
@@ -1408,12 +1422,6 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
 
 
 
-@class NSString;
-
-@interface NSNotification (SWIFT_EXTENSION(Identance))
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _Nonnull verificationStatusDidChange;)
-+ (NSString * _Nonnull)verificationStatusDidChange SWIFT_WARN_UNUSED_RESULT;
-@end
 
 
 
@@ -1424,6 +1432,27 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _
 
 
 
+/// User Dossier Stage status
+typedef SWIFT_ENUM_NAMED(NSInteger, ZNStageStatus, "StageStatus", open) {
+/// New stage, user do not provide any information so far
+  ZNStageStatusDraft = 0,
+/// There is no final decision on application
+  ZNStageStatusPending = 1,
+/// User has to provide updated information to the initial application
+  ZNStageStatusCorrection = 2,
+/// Final decision, user has successfully passed verification
+  ZNStageStatusAccepted = 3,
+/// User not allowed to send this stage, until he passes previous stage
+  ZNStageStatusLocked = 4,
+/// User has submitted stage and it is still processing on backend
+  ZNStageStatusInprogress = 5,
+/// Final decision, user has not passed verification
+  ZNStageStatusRefused = 6,
+/// User has to send subsequent stage of verification
+  ZNStageStatusNextStageNeeded = 7,
+/// User is obliged by CO to provide information on specific stage of verification
+  ZNStageStatusCurrentStageNeeded = 8,
+};
 
 
 
@@ -1512,7 +1541,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) ZNUIScheme * _Nonnull 
 
 
 
-enum ZNVerificationStatus : NSInteger;
 
 /// Primary class to use as entry point for SDK functionality.
 SWIFT_CLASS_NAMED("Verification")
@@ -1525,10 +1553,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 + (NSString * _Nonnull)fullVersionString SWIFT_WARN_UNUSED_RESULT;
 /// Configuration object passed on initialization.
 @property (nonatomic, readonly, strong) ZNConfiguration * _Nonnull configuration;
-/// User verification status
-@property (nonatomic, readonly) enum ZNVerificationStatus status;
-/// List of verified stage id’s
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull verifiedStages;
 /// Initializes verification object with configuration.
 /// <ul>
 ///   <li>
@@ -1542,22 +1566,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
-
-@interface ZNVerification (SWIFT_EXTENSION(Identance))
-/// Allows to get current verifications status.
-/// <ul>
-///   <li>
-///     parameters:
-///   </li>
-///   <li>
-///     completion: Block that will be called on operation completion.
-///   </li>
-/// </ul>
-- (void)getVerificationStatusWithCompletion:(void (^ _Nullable)(enum ZNVerificationStatus, NSError * _Nullable))completion;
-@end
-
-
 
 @class ZNVerificationViewController;
 
@@ -1600,12 +1608,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL isForceManualPhoto;)
 + (void)setIsForceManualPhoto:(BOOL)newValue;
 @end
 
-/// Verification status enum.
-typedef SWIFT_ENUM_NAMED(NSInteger, ZNVerificationStatus, "VerificationStatus", open) {
-  ZNVerificationStatusNotDetermined = 0,
-  ZNVerificationStatusNotVerified = 1,
-  ZNVerificationStatusRejected = 2,
-};
+
+/// Verification result.
+SWIFT_CLASS_NAMED("VerificationResult")
+@interface ZNVerificationResult : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 @class NSBundle;
 @class NSCoder;
@@ -1637,9 +1645,7 @@ SWIFT_CLASS_NAMED("VerificationViewController")
 
 SWIFT_PROTOCOL_NAMED("VerificationViewControllerDelegate")
 @protocol ZNVerificationViewControllerDelegate
-@optional
-- (void)verification:(ZNVerificationViewController * _Nonnull)viewController failed:(NSError * _Nonnull)error;
-- (void)verificationDidComplete:(ZNVerificationViewController * _Nonnull)viewController;
+- (void)verification:(ZNVerificationViewController * _Nonnull)viewController didCompleteWith:(ZNVerificationResult * _Nonnull)result;
 @end
 
 
@@ -1938,6 +1944,16 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNConfigurationWorkingMode, "ConfigurationWo
 
 
 
+/// Verification status enum.
+typedef SWIFT_ENUM_NAMED(NSInteger, ZNVerificationStatus, "DossierSubmitStatus", open) {
+/// User close verification without any changes to Dossier
+  ZNVerificationStatusCancelled = 0,
+/// User Dossier was changed during current verification session
+  ZNVerificationStatusDossierSubmitted = 1,
+/// User Dossier is in rejected state
+  ZNVerificationStatusDossierRejected = 2,
+};
+
 
 
 typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
@@ -1956,12 +1972,6 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
 
 
 
-@class NSString;
-
-@interface NSNotification (SWIFT_EXTENSION(Identance))
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _Nonnull verificationStatusDidChange;)
-+ (NSString * _Nonnull)verificationStatusDidChange SWIFT_WARN_UNUSED_RESULT;
-@end
 
 
 
@@ -1972,6 +1982,27 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _
 
 
 
+/// User Dossier Stage status
+typedef SWIFT_ENUM_NAMED(NSInteger, ZNStageStatus, "StageStatus", open) {
+/// New stage, user do not provide any information so far
+  ZNStageStatusDraft = 0,
+/// There is no final decision on application
+  ZNStageStatusPending = 1,
+/// User has to provide updated information to the initial application
+  ZNStageStatusCorrection = 2,
+/// Final decision, user has successfully passed verification
+  ZNStageStatusAccepted = 3,
+/// User not allowed to send this stage, until he passes previous stage
+  ZNStageStatusLocked = 4,
+/// User has submitted stage and it is still processing on backend
+  ZNStageStatusInprogress = 5,
+/// Final decision, user has not passed verification
+  ZNStageStatusRefused = 6,
+/// User has to send subsequent stage of verification
+  ZNStageStatusNextStageNeeded = 7,
+/// User is obliged by CO to provide information on specific stage of verification
+  ZNStageStatusCurrentStageNeeded = 8,
+};
 
 
 
@@ -2060,7 +2091,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) ZNUIScheme * _Nonnull 
 
 
 
-enum ZNVerificationStatus : NSInteger;
 
 /// Primary class to use as entry point for SDK functionality.
 SWIFT_CLASS_NAMED("Verification")
@@ -2073,10 +2103,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 + (NSString * _Nonnull)fullVersionString SWIFT_WARN_UNUSED_RESULT;
 /// Configuration object passed on initialization.
 @property (nonatomic, readonly, strong) ZNConfiguration * _Nonnull configuration;
-/// User verification status
-@property (nonatomic, readonly) enum ZNVerificationStatus status;
-/// List of verified stage id’s
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull verifiedStages;
 /// Initializes verification object with configuration.
 /// <ul>
 ///   <li>
@@ -2090,22 +2116,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
-
-@interface ZNVerification (SWIFT_EXTENSION(Identance))
-/// Allows to get current verifications status.
-/// <ul>
-///   <li>
-///     parameters:
-///   </li>
-///   <li>
-///     completion: Block that will be called on operation completion.
-///   </li>
-/// </ul>
-- (void)getVerificationStatusWithCompletion:(void (^ _Nullable)(enum ZNVerificationStatus, NSError * _Nullable))completion;
-@end
-
-
 
 @class ZNVerificationViewController;
 
@@ -2148,12 +2158,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL isForceManualPhoto;)
 + (void)setIsForceManualPhoto:(BOOL)newValue;
 @end
 
-/// Verification status enum.
-typedef SWIFT_ENUM_NAMED(NSInteger, ZNVerificationStatus, "VerificationStatus", open) {
-  ZNVerificationStatusNotDetermined = 0,
-  ZNVerificationStatusNotVerified = 1,
-  ZNVerificationStatusRejected = 2,
-};
+
+/// Verification result.
+SWIFT_CLASS_NAMED("VerificationResult")
+@interface ZNVerificationResult : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 @class NSBundle;
 @class NSCoder;
@@ -2185,9 +2195,7 @@ SWIFT_CLASS_NAMED("VerificationViewController")
 
 SWIFT_PROTOCOL_NAMED("VerificationViewControllerDelegate")
 @protocol ZNVerificationViewControllerDelegate
-@optional
-- (void)verification:(ZNVerificationViewController * _Nonnull)viewController failed:(NSError * _Nonnull)error;
-- (void)verificationDidComplete:(ZNVerificationViewController * _Nonnull)viewController;
+- (void)verification:(ZNVerificationViewController * _Nonnull)viewController didCompleteWith:(ZNVerificationResult * _Nonnull)result;
 @end
 
 
