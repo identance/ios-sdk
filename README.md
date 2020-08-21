@@ -52,6 +52,20 @@ pod 'Identance'
 
 _IMPORTANT_: if you need to integrate Identance SDK into Objective-C code then you should use `ZN` prefix for Identance classes.
 
+_IMPORTANT_: you must include below code to your podfile to avoid crashes in runtime.
+
+```
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        if target.name == "Down"
+            target.build_configurations.each do |config|
+              config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = "YES"
+            end
+        end
+    end
+end
+```
+
 ### Application Restrictions
 
 To work properly SDK requires access to device *Camera* and *Photo Library*. For this purpose you must add (if not added there yet) next keys to your application `Info.plist` file:
