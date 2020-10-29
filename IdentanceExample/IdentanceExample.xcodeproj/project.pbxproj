@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		184E5B878CAF2E566CA5C050 /* Pods_IdentanceExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9185433E94068C6C6172F10 /* Pods_IdentanceExample.framework */; };
 		1E8171EC225CBA1800E13366 /* IdentanceTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8171EB225CBA1800E13366 /* IdentanceTokenProvider.swift */; };
-		1E8E156E24C71701009B6D55 /* Identance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8E156A24C71612009B6D55 /* Identance.framework */; };
-		1E8E156F24C71701009B6D55 /* Identance.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8E156A24C71612009B6D55 /* Identance.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1EBD1511254AE42000976872 /* Identance.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBD150F254AE40F00976872 /* Identance.xcframework */; };
+		1EBD1512254AE42000976872 /* Identance.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBD150F254AE40F00976872 /* Identance.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1ECCBC36225B76EF000EB760 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECCBC35225B76EF000EB760 /* AppDelegate.swift */; };
 		1ECCBC38225B76EF000EB760 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECCBC37225B76EF000EB760 /* ViewController.swift */; };
 		1ECCBC3B225B76EF000EB760 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1ECCBC39225B76EF000EB760 /* Main.storyboard */; };
@@ -25,7 +25,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1E8E156F24C71701009B6D55 /* Identance.framework in Embed Frameworks */,
+				1EBD1512254AE42000976872 /* Identance.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,7 +35,7 @@
 /* Begin PBXFileReference section */
 		0A40CDC28A2A9D50D5610750 /* Pods-IdentanceExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdentanceExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IdentanceExample/Pods-IdentanceExample.debug.xcconfig"; sourceTree = "<group>"; };
 		1E8171EB225CBA1800E13366 /* IdentanceTokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentanceTokenProvider.swift; sourceTree = "<group>"; };
-		1E8E156A24C71612009B6D55 /* Identance.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Identance.framework; path = ../Identance.framework; sourceTree = "<group>"; };
+		1EBD150F254AE40F00976872 /* Identance.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Identance.xcframework; path = ../Identance.xcframework; sourceTree = "<group>"; };
 		1ECCBC32225B76EF000EB760 /* IdentanceExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IdentanceExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ECCBC35225B76EF000EB760 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1ECCBC37225B76EF000EB760 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -52,8 +52,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E8E156E24C71701009B6D55 /* Identance.framework in Frameworks */,
 				184E5B878CAF2E566CA5C050 /* Pods_IdentanceExample.framework in Frameworks */,
+				1EBD1511254AE42000976872 /* Identance.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +104,7 @@
 		A7BDBD66D2E5260D4970CD82 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1E8E156A24C71612009B6D55 /* Identance.framework */,
+				1EBD150F254AE40F00976872 /* Identance.xcframework */,
 				D9185433E94068C6C6172F10 /* Pods_IdentanceExample.framework */,
 			);
 			name = Frameworks;

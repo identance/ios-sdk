@@ -20,8 +20,8 @@
 ## Requirements
 
 - iOS 10.0+
-- Xcode 10.2+
-- Swift 5.0+
+- Xcode 11.4+
+- Swift 5.2+
 - iPhone idiom only (using the SDK in App with Universal or iPad only idiom could lead to unpredicted behavior)
 - iPhone 5+
 - Git LFS

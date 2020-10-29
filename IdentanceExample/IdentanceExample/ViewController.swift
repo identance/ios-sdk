@@ -38,18 +38,6 @@ class ViewController: UIViewController {
         present(verificationController, animated: true, completion: nil)
     }
     
-    @IBAction func tapCheckStatus() {
-        verification.getVerificationStatus { status, error in
-            print("Status: \(status.rawValue)")
-            
-            if let error = error {
-                print("Error: \(error)")
-            }
-            
-            // handle status and error here
-        }
-    }
-    
 }
 
 

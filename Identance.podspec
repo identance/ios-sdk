@@ -12,24 +12,19 @@ Pod::Spec.new do |spec|
   spec.homepage = 'https://identance.com/'
   spec.authors  = { 'Identance' => 'partnership@identance.com'}
 
-  spec.vendored_frameworks = 'Identance.framework'
+  spec.vendored_frameworks = 'Identance.xcframework'
 
   spec.source   =  { 
     :git => 'https://github.com/identance/ios-sdk.git',
     :tag => spec.version
   }
 
-  spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-  spec.pod_target_xcconfig = {
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
-  }
-
-  spec.swift_version    = '5.0'
+  spec.swift_version    = '5.2'
   spec.platform         = :ios, '10.0'
   spec.ios.deployment_target = '10.0'
   spec.requires_arc     = true
   spec.frameworks       = 'UIKit', 'Foundation'
     
-  spec.dependency 'Down', '0.9.2'
+  spec.dependency 'Down', '0.9.4'
   
 end
