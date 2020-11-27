@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   
   spec.name     = 'Identance'
-  spec.version  = '2.3.3'
+  spec.version  = '2.4.0'
   spec.summary  = 'Identance Verification iOS SDK'
   
   spec.license  = { 
