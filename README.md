@@ -24,6 +24,7 @@
 - Swift 5.2+
 - iPhone idiom only (using the SDK in App with Universal or iPad only idiom could lead to unpredicted behavior)
 - iPhone 5+
+- Portrait and landscape orientation support on app level (see details below)
 - Git LFS
 
 
@@ -73,7 +74,16 @@ To work properly SDK requires access to device *Camera* and *Photo Library*. For
 * `NSPhotoLibraryUsageDescription` - Description for *Photo Library* usage
 * `NSCameraUsageDescription` - Description for device *Camera* usage
 
+### Orientation Support
 
+Identance SDK requires that host application must to support **portait** and **landscape** (left and right) orientation modes during verification process. It can be done by setting appropriate values to `UISupportedInterfaceOrientations` key inside *Info.plist* file or by proper implementing
+
+```swift
+optional func application(_ application: UIApplication, 
+supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask
+```
+
+of `UIApplicationDelegate`.
 
 ## Usage
 
