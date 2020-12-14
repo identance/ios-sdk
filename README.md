@@ -33,6 +33,8 @@
 
 ### CocoaPods
 
+You must use at least 1.10 version of Cocoapods.
+
 #### Git-lfs
 
 - You must install [Git Large File Storage](https://git-lfs.github.com/) by running these commands:
