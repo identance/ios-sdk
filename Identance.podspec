@@ -22,6 +22,7 @@ Pod::Spec.new do |spec|
   spec.swift_version    = '5.2'
   spec.platform         = :ios, '10.0'
   spec.ios.deployment_target = '10.0'
+  spec.cocoapods_version = '>= 1.10.0'
   spec.requires_arc     = true
   spec.frameworks       = 'UIKit', 'Foundation'
     
