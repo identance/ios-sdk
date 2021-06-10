@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
 // swift-module-flags: -target x86_64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Identance
 import ARKit
 import AVFoundation
@@ -31,8 +31,8 @@ import os
   case info = 2
   case warning = 3
   case error = 4
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -65,8 +65,8 @@ extension Configuration {
   case refused
   case nextStageNeeded
   case currentStageNeeded
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -78,8 +78,8 @@ extension Configuration {
   @objc public init(provider: @escaping (@escaping (Swift.String?, Swift.Error?) -> Swift.Void) -> Swift.Void)
   @objc open var provider: (@escaping (Swift.String?, Swift.Error?) -> Swift.Void) -> Swift.Void
   @objc open func token(completion: @escaping (Swift.String?, Swift.Error?) -> Swift.Void)
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(ZNUIScheme) public class UIScheme : ObjectiveC.NSObject {
   @objc public static var shared: Identance.UIScheme
@@ -98,17 +98,18 @@ extension Configuration {
   @objc public var workingMode: Identance.ConfigurationWorkingMode
   @objc public var showSupportScreen: ((UIKit.UIViewController) -> Swift.Void)?
   @objc public var language: Identance.ConfigurationLanguage
+  @objc public var localizationKeys: Identance.LocalizationKeys!
   @objc public var customLanguageStringsURL: Foundation.URL?
   @objc public var reserved: Swift.String?
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
 @objc(ZNConfigurationLanguage) public enum ConfigurationLanguage : Swift.Int {
   case system = 0
   case english = 1
   case russian = 2
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -116,8 +117,8 @@ extension Configuration {
 @objc(ZNConfigurationWorkingMode) public enum ConfigurationWorkingMode : Swift.Int {
   case allStages = 0
   case singleStage = 1
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -143,8 +144,8 @@ public typealias StageID = Swift.String
   case cancelled
   case dossierSubmitted
   case dossierRejected
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -158,8 +159,8 @@ public typealias StageID = Swift.String
   }
   @objc final public let configuration: Identance.Configuration
   @objc public init(configuration: Identance.Configuration) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
 extension Verification {
   @objc dynamic public func verificationViewController() -> Identance.VerificationViewController
@@ -206,6 +207,33 @@ extension Collection where Self.Element == Swift.UInt8, Self.Index == Swift.Int 
 extension UIDeviceOrientation {
   public init(videoOrientation: AVFoundation.AVCaptureVideoOrientation)
 }
+@objc(ZNVerificationStage) public enum VerificationStage : Swift.Int {
+  case identity
+  case address
+  case enhanced
+  case corporate
+  case questionnaire
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(ZNLocalizationKeys) public class LocalizationKeys : ObjectiveC.NSObject {
+  @objc public static let empty: Identance.LocalizationKeys
+  @objc public var stageDescriptions: [Identance.LocalizationStageDescription]
+  @objc public init(stageDescriptions: [Identance.LocalizationStageDescription])
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(ZNLocalizationStageDescription) public class LocalizationStageDescription : ObjectiveC.NSObject {
+  @objc public var stage: Identance.VerificationStage
+  @objc public var shortDescriptionKey: Swift.String
+  @objc public var fullDescriptionKey: Swift.String
+  @objc public init(stage: Identance.VerificationStage, shortDescriptionKey: Swift.String, fullDescriptionKey: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
 extension Identance.LogLevel : Swift.Equatable {}
 extension Identance.LogLevel : Swift.Hashable {}
 extension Identance.LogLevel : Swift.RawRepresentable {}
@@ -221,3 +249,6 @@ extension Identance.ConfigurationWorkingMode : Swift.RawRepresentable {}
 extension Identance.DossierSubmitStatus : Swift.Equatable {}
 extension Identance.DossierSubmitStatus : Swift.Hashable {}
 extension Identance.DossierSubmitStatus : Swift.RawRepresentable {}
+extension Identance.VerificationStage : Swift.Equatable {}
+extension Identance.VerificationStage : Swift.Hashable {}
+extension Identance.VerificationStage : Swift.RawRepresentable {}
