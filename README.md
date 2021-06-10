@@ -102,6 +102,7 @@ You access the main SDK features via the `Verification` object. To create it you
 * `apiURL` (required) - API endpoint to work with. Contact us to get one. Usually you need to use separate URLs for sandbox and production environments.
 * `tokenProvider` (required) - JWT Token provider instance. You need to implement the `TokenProvider` protocol to return the JWT Token string. You can use the existing class `ClosureTokenProvider` and setup the `provider` closure or make a new one. See [Working with JsonWebToken](https://identance.com/docs/) for technical details.
 * `workingMode ` (required) - use `singleStage` or `allStages` depending on your business logic.
+* `localizationKeys` (required) - `LocalizationKeys` instance with merchant related text localization keys. See details here: [Texts](#Texts)
 * `language` (required) - SDK language:
   * `system` (default) - language of the host app. If SDK doesn't support it then *English* will be used.
   * `english` - force *English* language. 
@@ -185,6 +186,10 @@ UIScheme.shared.resetToDarkTheme()
 Icons and images inside the SDK could replaced by properly naming image resources inside **main bundle** of a host application. Use prefix `zn__` and name of the SDK image resource. If image must be separate for dark and light theme then you could add suffix `~light` to the end of light theme resource name (ex. `zn__alert_icon~light`).
 
 ### Texts
+
+In case you use `allStages` `workingMode` then you must properly fill `LocalizationKeys.stageDescriptions` with `LocalizationStageDescription` objects. Each object contains **short** (`shortDescriptionKey`) and **full** (`fullDescriptionKey`) **description** **key** for some stage (`stage`). SDK grab localized texts by these keys from host application localization files. **Short description** is text placed on a bottom of a stage cell. **Full description** is text placed on a screen when user tap on a stage cell. **Full description** text supports Markdown format including links. Proper `LocalizationKeys` object must be set to `localizationKeys` property of a verification `Configuration` instance before verification start. 
+
+In case you never use `allStages` and instead use `singleStage` `workingMode` then you could just set `localizationKeys = .empty` of a verification `Configuration` instance.
 
 If some text in the SDK must be changed then you need to add appropriate strings key-pairs to default `Localizable.strings` file inside your application of appropriate language. Example of such pair:
 

@@ -26,6 +26,6 @@ Pod::Spec.new do |spec|
   spec.requires_arc     = true
   spec.frameworks       = 'UIKit', 'Foundation'
     
-  spec.dependency 'Down', '0.9.4'
+  spec.dependency 'Down', '0.11.0'
   
 end
