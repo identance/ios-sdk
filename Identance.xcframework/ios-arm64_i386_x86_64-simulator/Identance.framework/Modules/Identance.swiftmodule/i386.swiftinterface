@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+// swift-compiler-version: Apple Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)
 // swift-module-flags: -target i386-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Identance
 import ARKit
 import AVFoundation
@@ -23,6 +23,7 @@ import SystemConfiguration
 import UIKit.UIGeometry
 import UIKit
 import Vision
+import _Concurrency
 import os.log
 import os
 @objc(ZNLogLevel) public enum LogLevel : Swift.Int {
@@ -37,23 +38,23 @@ import os
     get
   }
 }
-extension Configuration {
+extension Identance.Configuration {
   public func validateMicroblink() throws
 }
 @objc(ZNVerificationViewControllerDelegate) public protocol VerificationViewControllerDelegate {
   @objc(verification:didCompleteWith:) func verification(_ viewController: Identance.VerificationViewController, didCompleteWith result: Identance.VerificationResult)
 }
-@_hasMissingDesignatedInitializers @objc(ZNVerificationViewController) public class VerificationViewController : Identance.ViewController {
-  @objc weak public var delegate: Identance.VerificationViewControllerDelegate?
-  @objc override dynamic public var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
-    @objc get
+@_hasMissingDesignatedInitializers @objc(ZNVerificationViewController) @_Concurrency.MainActor(unsafe) public class VerificationViewController : Identance.ViewController {
+  @objc @_Concurrency.MainActor(unsafe) weak public var delegate: Identance.VerificationViewControllerDelegate?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
+    @_Concurrency.MainActor(unsafe) @objc get
   }
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
   @objc deinit
-  @objc override dynamic public func viewDidLoad()
-  @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
-  @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
-  @objc override dynamic public func didMove(toParent parent: UIKit.UIViewController?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func didMove(toParent parent: UIKit.UIViewController?)
 }
 @objc(ZNStageStatus) public enum StageStatus : Swift.Int {
   case draft
@@ -78,7 +79,6 @@ extension Configuration {
   @objc public init(provider: @escaping (@escaping (Swift.String?, Swift.Error?) -> Swift.Void) -> Swift.Void)
   @objc open var provider: (@escaping (Swift.String?, Swift.Error?) -> Swift.Void) -> Swift.Void
   @objc open func token(completion: @escaping (Swift.String?, Swift.Error?) -> Swift.Void)
-  @objc override dynamic public init()
   @objc deinit
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(ZNUIScheme) public class UIScheme : ObjectiveC.NSObject {
@@ -96,7 +96,7 @@ extension Configuration {
   @objc public var apiURL: Foundation.URL!
   @objc public var tokenProvider: Identance.TokenProvider!
   @objc public var workingMode: Identance.ConfigurationWorkingMode
-  @objc public var showSupportScreen: ((UIKit.UIViewController) -> Swift.Void)?
+  @objc public var showSupportScreen: ((_ rootViewController: UIKit.UIViewController) -> Swift.Void)?
   @objc public var language: Identance.ConfigurationLanguage
   @objc public var localizationKeys: Identance.LocalizationKeys!
   @objc public var customLanguageStringsURL: Foundation.URL?
@@ -159,15 +159,12 @@ public typealias StageID = Swift.String
   }
   @objc final public let configuration: Identance.Configuration
   @objc public init(configuration: Identance.Configuration) throws
-  @objc override dynamic public init()
   @objc deinit
 }
-extension Verification {
+extension Identance.Verification {
   @objc dynamic public func verificationViewController() -> Identance.VerificationViewController
 }
-extension Collection where Self.Element == Swift.UInt8, Self.Index == Swift.Int {
-}
-@objc extension Verification {
+@objc extension Identance.Verification {
   @objc public static var isLogging: Swift.Bool {
     @objc get
     @objc set
@@ -177,7 +174,7 @@ extension Collection where Self.Element == Swift.UInt8, Self.Index == Swift.Int 
     @objc set
   }
 }
-@objc extension Verification {
+@objc extension Identance.Verification {
   @objc public static var isLocalizationDebugMode: Swift.Bool {
     @objc get
     @objc set
@@ -195,16 +192,16 @@ extension Collection where Self.Element == Swift.UInt8, Self.Index == Swift.Int 
     @objc set
   }
 }
-@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(ZNViewController) public class ViewController : UIKit.UIViewController {
-  @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
-    @objc get
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(ZNViewController) @_Concurrency.MainActor(unsafe) public class ViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @_Concurrency.MainActor(unsafe) @objc get
   }
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc override dynamic public func viewDidLoad()
-  @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
   @objc deinit
 }
-extension UIDeviceOrientation {
+extension UIKit.UIDeviceOrientation {
   public init(videoOrientation: AVFoundation.AVCaptureVideoOrientation)
 }
 @objc(ZNVerificationStage) public enum VerificationStage : Swift.Int {
@@ -223,7 +220,6 @@ extension UIDeviceOrientation {
   @objc public static let empty: Identance.LocalizationKeys
   @objc public var stageDescriptions: [Identance.LocalizationStageDescription]
   @objc public init(stageDescriptions: [Identance.LocalizationStageDescription])
-  @objc override dynamic public init()
   @objc deinit
 }
 @objc(ZNLocalizationStageDescription) public class LocalizationStageDescription : ObjectiveC.NSObject {
@@ -231,7 +227,6 @@ extension UIDeviceOrientation {
   @objc public var shortDescriptionKey: Swift.String
   @objc public var fullDescriptionKey: Swift.String
   @objc public init(stage: Identance.VerificationStage, shortDescriptionKey: Swift.String, fullDescriptionKey: Swift.String)
-  @objc override dynamic public init()
   @objc deinit
 }
 extension Identance.LogLevel : Swift.Equatable {}
