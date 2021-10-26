@@ -20,8 +20,8 @@
 ## Requirements
 
 - iOS 10.0+
-- Xcode 12.5+
-- Swift 5.2+
+- Xcode 13.0+
+- Swift 5.5+
 - iPhone idiom only (using the SDK in App with Universal or iPad only idiom could lead to unpredicted behavior)
 - iPhone 5+
 - Portrait and landscape orientation support on app level (see details below)
@@ -55,21 +55,7 @@ pod 'Identance'
 
 _IMPORTANT_: if you need to integrate Identance SDK into Objective-C code then you should use `ZN` prefix for Identance classes.
 
-_IMPORTANT_: you must include below code to your podfile to avoid crashes in runtime.
-
-```ruby
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        if target.name == "Down"
-            target.build_configurations.each do |config|
-              config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = "YES"
-            end
-        end
-    end
-end
-```
-
-_IMPORTANT_: you shouldn't change original delpoyment version of Identance SDK and all its dependencies (like *Down*) in Pod project. In other you case you could get compile or runtime errors.
+_IMPORTANT_: you shouldn't change original delpoyment version of Identance SDK and all its dependencies  in Pod project. In other you case you could get compile or runtime errors.
 
 ### Application Restrictions
 

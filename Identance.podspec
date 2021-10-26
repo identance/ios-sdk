@@ -19,13 +19,11 @@ Pod::Spec.new do |spec|
     :tag => spec.version
   }
 
-  spec.swift_version    = '5.2'
+  spec.swift_version    = '5.5'
   spec.platform         = :ios, '10.0'
   spec.ios.deployment_target = '10.0'
   spec.cocoapods_version = '>= 1.10.0'
   spec.requires_arc     = true
   spec.frameworks       = 'UIKit', 'Foundation'
-    
-  spec.dependency 'Down', '0.11.0'
-  
+
 end
