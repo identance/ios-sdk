@@ -10,7 +10,6 @@ import CoreGraphics
 import CoreTelephony
 import DeviceCheck
 import Dispatch
-import Down
 import Foundation
 @_exported import Identance
 import MobileCoreServices

@@ -347,6 +347,7 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
 
 
 
+
 /// User Dossier Stage status
 typedef SWIFT_ENUM_NAMED(NSInteger, ZNStageStatus, "StageStatus", open) {
 /// New stage, user do not provide any information so far
@@ -890,6 +891,7 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
 
 
 
+
 /// User Dossier Stage status
 typedef SWIFT_ENUM_NAMED(NSInteger, ZNStageStatus, "StageStatus", open) {
 /// New stage, user do not provide any information so far
@@ -1423,6 +1425,7 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZNLogLevel, "LogLevel", open) {
   ZNLogLevelWarning = 3,
   ZNLogLevelError = 4,
 };
+
 
 
 
