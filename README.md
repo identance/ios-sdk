@@ -25,7 +25,6 @@
 - iPhone idiom only (using the SDK in App with Universal or iPad only idiom could lead to unpredicted behavior)
 - iPhone 5+
 - Portrait and landscape orientation support on app level (see details below)
-- Git LFS
 
 
 
@@ -34,18 +33,6 @@
 ### CocoaPods
 
 You must use at least 1.10 version of Cocoapods.
-
-#### Git-lfs
-
-- You must install [Git Large File Storage](https://git-lfs.github.com/) by running these commands:
-
-```bash
-brew install git-lfs
-git lfs install
-```
-
-- **Be sure to restart your console after installing Git LFS**
-- **Note:** if you already did try adding SDK using cocoapods and it's not working, first install the git-lfs and then clear you cocoapods cache. This should be sufficient to force cocoapods to clone SDK, if it still doesn't work, try deinitializing your pods and installing them again.
 
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate Identance into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -56,6 +43,13 @@ pod 'Identance'
 _IMPORTANT_: if you need to integrate Identance SDK into Objective-C code then you should use `ZN` prefix for Identance classes.
 
 _IMPORTANT_: you shouldn't change original delpoyment version of Identance SDK and all its dependencies  in Pod project. In other you case you could get compile or runtime errors.
+
+### Swift Package Manager (beta)
+
+The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the swift compiler. To integrate using Apple's Swift package manager from xcode :
+
+1. File -> Swift Packages -> Add Package Dependency...
+2. Enter package URL: https://github.com/identance/ios-sdk, always choose the latest release
 
 ### Application Restrictions
 
@@ -193,5 +187,5 @@ All SDK keys start with `zn__` so there won't be any conflict with your own keys
 **A**: Usually this could be in case when Xcode project contains *bridging header*.  Set target's `BUILD_LIBRARY_FOR_DISTRIBUTION` build setting to `NO`.
 
 **Q**: During verification flow a user document scanning step absent on Simulator device.
-**A**: Simulator device doesn't have access to a camera so this step is automatically skipped. Because of that it is highly recommended to test verification flow on real device.
+**A**: Simulator device doesn't have access to a camera so this step is automatically skipped. Because of that it is highly recommended to test verification flow on a real device.
 
