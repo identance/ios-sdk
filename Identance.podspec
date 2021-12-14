@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   
   spec.name     = 'Identance'
-  spec.version  = '2.6.5'
+  spec.version  = '2.7.0'
   spec.summary  = 'Identance Verification iOS SDK'
   
   spec.license  = { 
@@ -11,10 +11,10 @@ Pod::Spec.new do |spec|
 
   spec.homepage = 'https://identance.com/'
   spec.authors  = { 'Identance' => 'partnership@identance.com'}
-  
+
   spec.vendored_frameworks = 'Identance.xcframework'
 
-  spec.source   = { :http => 'https://download.identance.com/sdk/ios/2.6.5/Identance.xcframework.zip', :sha256 => '140e80f73795c4dccb7c7700cec8c500f61bc19362a45257b71577ad965d6973' }
+  spec.source   = { :http => https://download.identance.com/sdk/ios/2.7.0/Identance.xcframework.zip, :sha256 => 729805bc27e037d260f400482bfbf248e07ab57945455dde970b5005409c45c6 }
 
   spec.swift_version    = '5.5'
   spec.platform         = :ios, '10.0'
