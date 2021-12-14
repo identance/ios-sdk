@@ -14,11 +14,11 @@ Pod::Spec.new do |spec|
 
   spec.vendored_frameworks = 'Identance.xcframework'
 
-  spec.source   = { :http => https://download.identance.com/sdk/ios/2.7.0/Identance.xcframework.zip, :sha256 => 729805bc27e037d260f400482bfbf248e07ab57945455dde970b5005409c45c6 }
+  spec.source   = { :http => "https://download.identance.com/sdk/ios/2.7.0/Identance.xcframework.zip", :sha256 => "729805bc27e037d260f400482bfbf248e07ab57945455dde970b5005409c45c6" }
 
   spec.swift_version    = '5.5'
-  spec.platform         = :ios, '10.0'
-  spec.ios.deployment_target = '10.0'
+  spec.platform         = :ios, '12.1'
+  spec.ios.deployment_target = '12.1'
   spec.cocoapods_version = '>= 1.10.0'
   spec.requires_arc     = true
   spec.frameworks       = 'UIKit', 'Foundation'

@@ -19,11 +19,11 @@
 
 ## Requirements
 
-- iOS 10.0+
+- iOS 12.1+
 - Xcode 13.0+
 - Swift 5.5+
 - iPhone idiom only (using the SDK in App with Universal or iPad only idiom could lead to unpredicted behavior)
-- iPhone 5+
+- iPhone 5S+
 - Portrait and landscape orientation support on app level (see details below)
 
 
