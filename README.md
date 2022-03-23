@@ -179,7 +179,7 @@ If some text in the SDK must be changed then you need to add appropriate strings
 "zn__button_yes" = "Yes";
 ```
 
-All SDK keys start with `zn__` so there won't be any conflict with your own keys. Try open contents of framework and find there `Localizable.strings` files inside `language.lprog` directories to search for key you want to replace.
+All SDK keys start with `zn__` so there won't be any conflict with your own keys. Contact us to receive full keys/text list in such case.
 
 ## Q&A
 
