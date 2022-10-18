@@ -13,6 +13,6 @@ let package = Package(
             targets: ["Identance"]),
     ],
     targets: [
-        .binaryTarget(name: "Identance", url: "https://download.identance.com/sdk/ios/2.8.0/Identance.xcframework.zip", checksum: "9a6f830e80f8b4185f0bdfd8735fbeab0b1d2757eea6b347137b511746eac039")
+        .binaryTarget(name: "Identance", url: "https://download.identance.com/sdk/ios/2.9.0/Identance.xcframework.zip", checksum: "407165ef635f2cb345104c79adcecad3028355922dce83f8e12d16a79368c4e5")
     ]
 )
