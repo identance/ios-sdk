@@ -20,8 +20,8 @@
 ## Requirements
 
 - iOS 12.1+
-- Xcode 13.0+
-- Swift 5.5+
+- Xcode 14.0+
+- Swift 5.7+
 - iPhone idiom only (using the SDK in App with Universal or iPad only idiom could lead to unpredicted behavior)
 - iPhone 5S+
 - Portrait and landscape orientation support on app level (see details below)
@@ -46,10 +46,12 @@ _IMPORTANT_: you shouldn't change original delpoyment version of Identance SDK a
 
 ### Swift Package Manager (beta)
 
-The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the swift compiler. To integrate using Apple's Swift package manager from xcode :
+Latest versions (begin from 2.10.0) don't support SPM.
 
-1. File -> Swift Packages -> Add Package Dependency...
-2. Enter package URL: https://github.com/identance/ios-sdk, always choose the latest release
+~~The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the swift compiler. To integrate using Apple's Swift package manager from xcode :~~
+
+1. ~~File -> Swift Packages -> Add Package Dependency...~~
+2. ~~Enter package URL: https://github.com/identance/ios-sdk, always choose the latest release~~
 
 ### Application Restrictions
 
