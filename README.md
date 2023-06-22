@@ -20,7 +20,7 @@
 ## Requirements
 
 - iOS 12.1+
-- Xcode 14.0+
+- Xcode 14.3.1+
 - Swift 5.7+
 - iPhone idiom only (using the SDK in App with Universal or iPad only idiom could lead to unpredicted behavior)
 - iPhone 5S+
