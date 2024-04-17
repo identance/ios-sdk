@@ -1,12 +1,12 @@
 Pod::Spec.new do |spec|
   
   spec.name     = 'Identance'
-  spec.version  = '2.12.0'
+  spec.version  = '2.13.0'
   spec.summary  = 'Identance Verification iOS SDK'
   
   spec.license  = { 
     :type => 'commercial',
-    :text => '© 2018-2023 Identance. All rights reserved.'
+    :text => '© 2018-2024 Identance. All rights reserved.'
   }
 
   spec.homepage = 'https://identance.com/'
@@ -14,7 +14,7 @@ Pod::Spec.new do |spec|
 
   spec.vendored_frameworks = 'Identance.xcframework'
 
-  spec.source   = { :http => "https://download.identance.com/sdk/ios/2.12.0/Identance.xcframework.zip", :sha256 => "fc12a6b5688b659a3dc73bdb69f3fdbe4757a47f08fc5cae7c6543324f8c9a21" }
+  spec.source   = { :http => "https://download.identance.com/sdk/ios/2.13.0/Identance.xcframework.zip", :sha256 => "1d07db1c825e354dadb4b8d4d0aeb51b9af552597e5cb8664ca83112b83f3812" }
 
   spec.swift_version    = '5.7'
   spec.platform         = :ios, '12.1'
@@ -23,7 +23,7 @@ Pod::Spec.new do |spec|
   spec.requires_arc     = true
   spec.frameworks       = 'UIKit', 'Foundation'
 
-  spec.dependency 'FaceSDK', '5.1.1482'
-  spec.dependency 'FaceCoreSDK', '5.1.315'
+  spec.dependency 'FaceSDK', '6.1.1746'
+  spec.dependency 'FaceCoreSDK', '6.1.584'
 
 end
