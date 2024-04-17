@@ -14,7 +14,7 @@ Pod::Spec.new do |spec|
 
   spec.vendored_frameworks = 'Identance.xcframework'
 
-  spec.source   = { :http => "https://download.identance.com/sdk/ios/2.13.0/Identance.xcframework.zip", :sha256 => "1d07db1c825e354dadb4b8d4d0aeb51b9af552597e5cb8664ca83112b83f3812" }
+  spec.source   = { :http => "https://download.identance.com/sdk/ios/2.13.0/Identance.xcframework.zip", :sha256 => "a83670165c3b0a4d42e1bf395067b6bf32811d2114974afe6a812baaa688cdce" }
 
   spec.swift_version    = '5.7'
   spec.platform         = :ios, '12.1'
@@ -24,6 +24,6 @@ Pod::Spec.new do |spec|
   spec.frameworks       = 'UIKit', 'Foundation'
 
   spec.dependency 'FaceSDK', '6.1.1746'
-  spec.dependency 'FaceCoreSDK', '6.1.584'
+  spec.dependency 'FaceCoreBasic', '6.1.584'
 
 end
